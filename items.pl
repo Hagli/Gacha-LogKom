@@ -107,14 +107,14 @@ randompick:-
     random(1,11,X),
     rarity(X,Rarepick),
     (Rarepick=common -> random(1,12,Y);
-    Rarepick=uncommon -> random(1,12,Y);
+    Rarepick=uncommon -> random(1,8,Y);
     Rarepick=rare -> random(1,10,Y);
     Rarepick=legendary ->random(1,8,Y)
     ),
     rarity_list(Rarepick,Y,ITEM_ID),
     item(ITEM_ID,_,Name,_,_,_,_,_,_),
     write(Name),nl,
-    item_save(Name).
+    itemSave(Name).
 
 
 
