@@ -113,7 +113,8 @@ randompick:-
     ),
     rarity_list(Rarepick,Y,ITEM_ID),
     item(ITEM_ID,_,Name,_,_,_,_,_,_),
-    write(Name),nl.
+    write(Name),nl,
+    item_save(Name).
 
 
 
