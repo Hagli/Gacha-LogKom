@@ -21,5 +21,5 @@ serve:-
     read(Input),
     (
         Input=1 -> randompick;
-        Input=2 -> item_save(hp_potion)
+        Input=2 -> itemSave('hp_potion')
     ).
