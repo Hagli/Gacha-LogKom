@@ -1,4 +1,3 @@
-:- dynamic(player/2).
 lebarMap(10).
 panjangMap(10).
 posisiP(1,1).
