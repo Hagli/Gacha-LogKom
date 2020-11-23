@@ -1,4 +1,4 @@
-:- dynamic(player/2).
+:- dynamic(posisiP/2).
 lebarMap(10).
 panjangMap(10).
 posisiP(1,1).
@@ -24,4 +24,19 @@ printmap :-
 		(forall(between(0,LL,Y),
 			(map(X,Y)))
 		)),!.
-	
+w :- retract(posisiP(X,Y)),
+	(X = 1 -> asserta(posisiP(X,Y)); 
+	Z is X-1, asserta(posisiP(Z,Y))),
+	printmap.
+s :- retract(posisiP(X,Y)),
+	(X = 10 -> asserta(posisiP(X,Y)); 
+	Z is X+1, asserta(posisiP(Z,Y))),
+	printmap.
+a :- retract(posisiP(X,Y)),
+	(Y = 1 -> asserta(posisiP(X,Y)); 
+	Z is Y-1, asserta(posisiP(X,Z))),
+	printmap.
+d :- retract(posisiP(X,Y)),
+	(Y = 10 -> asserta(posisiP(X,Y)); 
+	Z is Y+1, asserta(posisiP(X,Z))),
+	printmap.
