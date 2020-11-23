@@ -1,7 +1,7 @@
 /* inventory.pl */
 /* Mendefinisikan inventory dengan 100 space */
 :- dynamic(space_filled/1).
-inventory(X) :- space_filled(X)
+inventory(X) :- space_filled(X).
 
 /* Cek item di inventory */
 :- dynamic(kept/2).
@@ -18,3 +18,11 @@ item_save(X):-  (inventory(filled), filled < 100 ->
                 write('Inventory penuh'), nl).
 /* Menghitung jumlah item spesifik */
 count_item(Item,Count) :- kept(Item,Count).
+
+/* Menyimpan banyak item ke inventory */
+/*mult_item_save(1,X) :- */
+/*	item_save(X). */
+/*mult_item_save(Y,X) :- */
+/*	item_save(X), */
+/*	Z is Y-1, */
+/*	mult_item_save(Z,X). */
