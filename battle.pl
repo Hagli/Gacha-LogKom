@@ -21,7 +21,7 @@ enemy_appear(_,Y) :-
 	Def is Y*8 + 6,
 	asserta(enemy(wolf,Y,HP,Att,Def)).
 attack :-
-	attP(Y),
+	player(_,_,_,_,_,_,_,Y,_,_,_),
 	call(enemy(A,Lv,HP,Att,Def)),
 	Z is Y + 3 - Def,
 	Z < HP,!,

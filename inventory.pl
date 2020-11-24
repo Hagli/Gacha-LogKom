@@ -15,7 +15,15 @@ itemSave(X):-  (inventory(Filled), Filled < 100 ->
                 NewFilled is Filled + 1, asserta(space_Filled(NewFilled));
                 asserta(kept(X,1)), retract(space_Filled(Filled)),
                 NewFilled is Filled + 1, asserta(space_Filled(NewFilled))),
-                write('Item telah disimpan ke dalam inventory.'), nl;
+                write(X), write(' telah disimpan ke dalam inventory.'), nl;
                 write('Inventory penuh.'), nl).
 /* Menghitung jumlah item spesifik */
 count_item(Item,Count) :- kept(Item,Count).
+
+/* Simpan multiple item */
+mult_itemSave(1,X) :-
+	itemSave(X).
+mult_itemSave(Y,X) :-
+	itemSave(X),
+	Z is Y-1,
+	mult_itemSave(Z,X).
