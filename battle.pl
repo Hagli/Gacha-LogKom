@@ -61,7 +61,8 @@ sp_attack :-
 sp_attack :-
 	cooldown(X),
 	write('Special attack tidak bisa digunakan!'),nl,
-	write('Cooldown '),write(X),write(' turn').
+	write('Cooldown '),write(X),write(' turn'),nl,nl,
+	battle_loop.
 /*attack :-
 	call(enemy(A,Lv,HP,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)),!.*/
@@ -87,10 +88,14 @@ battle_loop :-
 		Choice='sp_attack' -> sp_attack;
 		battle_loop
     ),call(enemy(_,_,H,_,_)),
-	(H>0 -> enemy_attack; battle_loop),battle_loop.
+	((H>0 -> enemy_attack); battle_loop),
+	call(cooldown(Mate)),
+	Mates is Mate-1,
+	asserta(cooldown(Mates)),
+	retract(cooldown(Mate)),battle_loop.
 start_battle :-
 	get_enemy,
-	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
+	asserta(cooldown(3)), /*untuk sp_attack cooldown*/
 	call(enemy(A,Y,Hp,Att,Def)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
 	battle_loop.
