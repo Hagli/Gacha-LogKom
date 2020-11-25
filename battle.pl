@@ -34,6 +34,9 @@ attack :-
 	(write('Deal '),write(Z),write(' damage'))),nl,
 	assertz(enemy(A,Lv,X,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)).
+/*attack :-
+	call(enemy(A,Lv,HP,Att,Def)),
+	retract(enemy(A,Lv,HP,Att,Def)),!.*/
 enemy_attack :-
 	enemy(A,Lv,Hp,Att,Def),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
@@ -63,12 +66,40 @@ sp_attack :-
 	write('Special attack tidak bisa digunakan!'),nl,
 	write('Cooldown '),write(X),write(' turn'),nl,nl,
 	battle_loop.
-/*attack :-
-	call(enemy(A,Lv,HP,Att,Def)),
-	retract(enemy(A,Lv,HP,Att,Def)),!.*/
+nigeru :-
+	random(1,3,Z),
+	(
+		(Z =:= 1 -> write('Gagal kabur!'),nl);
+		(asserta(run(1)),
+		call(enemy(A,Y,Hp,Att,Def)),
+		Boi is 0,
+		asserta(enemy(A,Y,Boi,Att,Def)),
+		retract(enemy(A,Y,Hp,Att,Def)))
+	).
+battle_loop :-
+	run(1),
+	call(enemy(A,Y,Hp,Att,Def)),
+	Hp =< 0,write('Berhasil kabur dari musuh!'),
+	retract(enemy(A,Y,Hp,Att,Def)),
+	retract(run(1)),
+	retract(cooldown(X)),!.
+battle_loop :-
+	call(player(_,_,_,_,_,_,_,B,C,D,E)),
+	D =< 0,
+	write('Kau telah mati'),nl,
+	retract(player(_,_,_,_,_,_,_,_,_,_,_)),
+	retract(enemy(A,Y,Hp,Att,Def)),
+	retract(cooldown(X)),!.
 battle_loop :-
 	call(enemy(A,Y,Hp,Att,Def)),
-	Hp =< 0,write('Musuh '),write(A),write(' telah dikalahkan'),
+	Hp =< 0,write('Musuh '),write(A),write(' telah dikalahkan'),nl,
+	Xe is Y+6,
+	random(Y,Xe,Z),
+	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
+	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,HP,Recc)),
+	Expi is Exp+Z,
+	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,HP,Recc)),
+	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,HP,Recc)),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(cooldown(X)),!.
 battle_loop :-
@@ -86,6 +117,7 @@ battle_loop :-
 	(
         Choice='attack' -> attack;
 		Choice='sp_attack' -> sp_attack;
+		Choice='nigeru'-> nigeru;
 		battle_loop
     ),call(enemy(_,_,H,_,_)),
 	((H>0 -> enemy_attack); battle_loop),
