@@ -19,4 +19,4 @@ createArcher(A) :-
 createSorcerer(A) :-
 	asserta(player(A,sorcerer,apprentice_book,fur_armor,0,1,0,20,20,20,0)),
 	mult_itemSave(5,hp_potion),!.
-player(hagli,swordsman,rusty_sword,fur_armor,none,1,0,25,20,20,0).
+player(my_boi,swordsman,rusty_sword,fur_armor,none,1,0,25,20,20,0).

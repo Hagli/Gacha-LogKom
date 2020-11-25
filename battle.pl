@@ -38,7 +38,7 @@ attack :-
 	call(enemy(A,Lv,HP,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)),!.*/
 enemy_attack :-
-	enemy(A,Lv,Hp,Att,Def),
+	enemy(A,_,_,Att,_),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
 	random(0,3,Plus),
 	Z is Att + 3 - G + Plus,
@@ -66,30 +66,34 @@ sp_attack :-
 	write('Special attack tidak bisa digunakan!'),nl,
 	write('Cooldown '),write(X),write(' turn'),nl,nl,
 	battle_loop.
+tambahan_nigeru :-
+	asserta(run(1)),retract(run(0)),
+	call(enemy(A,Y,Hp,Att,Def)),
+	Boi is 0,
+	asserta(enemy(A,Y,Boi,Att,Def)),
+	retract(enemy(A,Y,Hp,Att,Def)).
+nigerun(1) :-
+	write('Gagal kabur'),nl.
+nigerun(_) :-
+	tambahan_nigeru.
 nigeru :-
 	random(1,3,Z),
-	(
-		(Z =:= 1 -> write('Gagal kabur!'),nl);
-		(asserta(run(1)),
-		call(enemy(A,Y,Hp,Att,Def)),
-		Boi is 0,
-		asserta(enemy(A,Y,Boi,Att,Def)),
-		retract(enemy(A,Y,Hp,Att,Def)))
-	).
+	nigerun(Z).
 battle_loop :-
 	run(1),
 	call(enemy(A,Y,Hp,Att,Def)),
 	Hp =< 0,write('Berhasil kabur dari musuh!'),
 	retract(enemy(A,Y,Hp,Att,Def)),
-	retract(run(1)),
-	retract(cooldown(X)),!.
+	retract(run(_)),
+	retract(cooldown(_)),!.
 battle_loop :-
-	call(player(_,_,_,_,_,_,_,B,C,D,E)),
+	call(player(_,_,_,_,_,_,_,_,_,D,_)),
 	D =< 0,
 	write('Kau telah mati'),nl,
 	retract(player(_,_,_,_,_,_,_,_,_,_,_)),
-	retract(enemy(A,Y,Hp,Att,Def)),
-	retract(cooldown(X)),!.
+	retract(enemy(_,_,_,_,_)),
+	retract(cooldown(_)),
+	retract(run(_)),!.
 battle_loop :-
 	call(enemy(A,Y,Hp,Att,Def)),
 	Hp =< 0,write('Musuh '),write(A),write(' telah dikalahkan'),nl,
@@ -101,10 +105,11 @@ battle_loop :-
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,HP,Recc)),
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,HP,Recc)),
 	retract(enemy(A,Y,Hp,Att,Def)),
-	retract(cooldown(X)),!.
+	retract(cooldown(_)),
+	retract(run(_)),!.
 battle_loop :-
-	call(enemy(A,Y,Hp,Att,Def)),
-	call(player(_,_,_,_,_,_,_,B,C,D,E)),
+	call(enemy(_,_,Hp,Att,Def)),
+	call(player(_,_,_,_,_,_,_,B,C,D,_)),
 	write('HP: '),write(D),write('                   HP musuh: '),write(Hp),nl,
 	write('Attack: '),write(B),write('                   Attack musuh: '),write(Att),nl,
 	write('Defense: '),write(C),write('                   Defense musuh: '),write(Def),nl,
@@ -120,14 +125,16 @@ battle_loop :-
 		Choice='nigeru'-> nigeru;
 		battle_loop
     ),call(enemy(_,_,H,_,_)),
-	((H>0 -> enemy_attack); battle_loop),
+	(H > 0 -> enemy_attack; battle_loop),
 	call(cooldown(Mate)),
 	Mates is Mate-1,
 	asserta(cooldown(Mates)),
-	retract(cooldown(Mate)),battle_loop.
+	retract(cooldown(Mate)), 
+	battle_loop.
 start_battle :-
 	get_enemy,
 	asserta(cooldown(3)), /*untuk sp_attack cooldown*/
-	call(enemy(A,Y,Hp,Att,Def)),
+	asserta(run(0)),
+	call(enemy(A,Y,_,_,_)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
 	battle_loop.

@@ -24,22 +24,34 @@ printmap :-
 		(forall(between(0,LL,Y),
 			(map(X,Y)))
 		)),!.
+heaven_or_hell(X) :-
+	X < 2, start_battle.
+heaven_or_hell(_) :-
+	1 =:= 1.
 w :- retract(posisiP(X,Y)),
 	(X = 1 -> asserta(posisiP(X,Y)); 
 	Z is X-1, asserta(posisiP(Z,Y))),
-	printmap.
+	printmap,
+	random(0,6,Tea),
+	heaven_or_hell(Tea).
 s :- retract(posisiP(X,Y)),
 	(X = 10 -> asserta(posisiP(X,Y)); 
 	Z is X+1, asserta(posisiP(Z,Y))),
-	printmap.
+	printmap,
+	random(0,6,Tea),
+	heaven_or_hell(Tea).
 a :- retract(posisiP(X,Y)),
 	(Y = 1 -> asserta(posisiP(X,Y)); 
 	Z is Y-1, asserta(posisiP(X,Z))),
-	printmap.
+	printmap,
+	random(0,6,Tea),
+	heaven_or_hell(Tea).
 d :- retract(posisiP(X,Y)),
 	(Y = 10 -> asserta(posisiP(X,Y)); 
 	Z is Y+1, asserta(posisiP(X,Z))),
-	printmap.
+	printmap,
+	random(0,6,Tea),
+	heaven_or_hell(Tea).
 show_stat :-
 	player(A,B,C,D,E,F,G,H,I,J,K),
 	write('Name: '),write(A),nl,
