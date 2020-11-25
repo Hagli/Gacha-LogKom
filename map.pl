@@ -40,3 +40,16 @@ d :- retract(posisiP(X,Y)),
 	(Y = 10 -> asserta(posisiP(X,Y)); 
 	Z is Y+1, asserta(posisiP(X,Z))),
 	printmap.
+show_stat :-
+	player(A,B,C,D,E,F,G,H,I,J,K),
+	write('Name: '),write(A),nl,
+	write('Job: '),write(B),nl,
+	write('Weapon: '),write(C),nl,
+	write('Armor: '),write(D),nl,
+	write('Accesory: '),write(E),nl,
+	write('Level: '),write(F),nl,
+	write('Exp: '),write(G),nl,
+	write('Attack: '),write(H),nl,
+	write('Defense: '),write(I),nl,
+	write('HP: '),write(J),nl,
+	write('Recovery: '),write(K).
