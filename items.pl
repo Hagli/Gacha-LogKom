@@ -112,8 +112,14 @@ randompick:-
     Rarepick=legendary ->random(1,8,Y)
     ),
     rarity_list(Rarepick,Y,ITEM_ID),
-    item(ITEM_ID,_,Name,_,_,_,_,_,_),
-    write(Name),nl,
+    item(ITEM_ID,Type,Name,Attack,Defense,HP,_,_,Class),
+    write('Congrats! you got : '),write(Name),write(' ('),write(Rarepick),write(')'),nl,
+    write('**Item Stat**'),nl,
+    write('Type : '),write(Type),nl,
+    write('Attack : '),write(Attack),nl,
+    write('Defense : '),write(Defense),nl,
+    write('HP : '),write(HP),nl,
+    write('Class Compability : '),write(Class),nl,
     itemSave(Name).
 
 
