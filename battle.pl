@@ -152,11 +152,14 @@ battle_loop :- /*main battle loop*/
 	battle_loop.
 	
 battle_choice(attack) :-
-	attack.
+	attack,!.
 battle_choice(sp_attack) :-
-	sp_attack.
+	sp_attack,!.
 battle_choice(nigeru) :-
-	nigeru.
+	nigeru,!.
+battle_choice(_) :-
+	write('Kau kehilangan keseimbanganmu!'),nl,
+	write('Musuhmu menggunakan kesempatan ini untuk menyerang!'),nl.
 	
 
 start_battle :-
