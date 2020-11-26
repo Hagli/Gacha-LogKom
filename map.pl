@@ -3,6 +3,7 @@ lebarMap(10).
 panjangMap(10).
 posisiP(1,1).
 posisiS(5,6).
+posisiQ(2,4).
 upline(P,_) :- P=:=0.
 leftline(_,L) :- L=:=0.
 downline(P,_) :- P1 is P-1, lebarMap(P1),!.
@@ -15,6 +16,7 @@ map(P,L) :- leftline(P,L), write('#'),!.
 map(P,L) :- downline(P,L), write('#'),!.
 map(P,L) :- posisiP(P,L), write('P'),!.
 map(P,L) :- posisiS(P,L), write('S'),!.
+map(P,L) :- posisiQ(P,L), write('Q'),!.
 map(_,_) :- write('.'),!.
 
 printmap :- 

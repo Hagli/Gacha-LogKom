@@ -125,6 +125,7 @@ battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	asserta(money(Yee)),retract(money(Fgc)),
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
+	quest_part_done(A),questing(Slimey,Goburin,Wolfey),quest_finish(Slimey,Goburin,Wolfey),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(cooldown(_)),
 	retract(run(_)),nl,!.

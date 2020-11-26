@@ -1,5 +1,6 @@
 :- include('store.pl').
 :- include('battle.pl').
+:- include('quest.pl').
 
 /* job yang mungkin */
 job(swordsman).
