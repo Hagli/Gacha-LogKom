@@ -122,8 +122,8 @@ battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(cooldown(_)),
-	retract(run(_)),nl.
-	
+	retract(run(_)),nl,!.
+
 	
 battle_loop :- /*main battle loop*/
 	call(enemy(_,_,Hp,Att,Def)),
@@ -137,11 +137,7 @@ battle_loop :- /*main battle loop*/
 	write('-> Use Potion (Command = blm dibuat)'),nl,
 	write('-> Run (Command = nigeru. :)'),nl,
 	read(Choice),nl,
-	(
-        Choice='attack' -> attack;
-		Choice='sp_attack' -> sp_attack;
-		Choice='nigeru'-> nigeru
-    ),call(enemy(_,_,H,_,_)),
+	battle_choice(Choice),call(enemy(_,_,H,_,_)),
 	(H > 0 -> enemy_attack; 2 =:= 2),
 	call(cooldown(Mate)),
 	(Mate = 0 -> Mates is 0; Mates is Mate-1),
@@ -149,11 +145,18 @@ battle_loop :- /*main battle loop*/
 	retract(cooldown(Mate)), 
 	battle_loop.
 	
+battle_choice(attack) :-
+	attack.
+battle_choice(sp_attack) :-
+	sp_attack.
+battle_choice(nigeru) :-
+	nigeru.
 	
+
 start_battle :-
 	get_enemy,
 	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
-	asserta(run(0)), /*menandakan apakah player berhasil lari atau tdk*/
+	assertz(run(0)), /*menandakan apakah player berhasil lari atau tdk*/
 	call(enemy(A,Y,_,_,_)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
 	battle_loop,
