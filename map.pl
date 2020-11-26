@@ -26,7 +26,11 @@ printmap :-
 	forall(between(0,PP,X),
 		(forall(between(0,LL,Y),
 			(map(X,Y)))
-		)),!.
+		)),
+	write('Legenda :'),nl,
+	write('S : Store'),nl,
+	write('Q : Guild'),nl,
+	write('D : DIO, The Final Boss'),nl,nl,!.
 	
 	
 w :- retract(posisiP(X,Y)),
