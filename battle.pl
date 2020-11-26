@@ -120,7 +120,7 @@ battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	write('Musuh '),write(A),write(' telah dikalahkan!'),nl,
 	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
 	call(money(Fgc)),
-	write('Kau mendapatkan '),write(Ye),write(' money'),nl,
+	write('Kau mendapatkan '),write(Ye),write(' money!'),nl,
 	Yee is Fgc+Ye,
 	asserta(money(Yee)),retract(money(Fgc)),
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
