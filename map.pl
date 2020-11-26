@@ -17,6 +17,7 @@ map(P,L) :- downline(P,L), write('#'),!.
 map(P,L) :- posisiP(P,L), write('P'),!.
 map(P,L) :- posisiS(P,L), write('S'),!.
 map(P,L) :- posisiQ(P,L), write('Q'),!.
+map(P,L) :- posisiB(P,L), write('B'),!.
 map(_,_) :- write('.'),!.
 
 printmap :- 

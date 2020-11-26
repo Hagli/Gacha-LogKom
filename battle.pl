@@ -75,9 +75,9 @@ attack :-
 	call(enemy(A,Lv,HP,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)),!.*/
 	
-write_enemy_attack(X,A,_) :-
-	X =< 0,write('Kau menghindari serangan musuh '), write(A),!.
-write_enemy_attack(_,A,Z) :-
+write_enemy_attack(A,Z) :-
+	write('Kau menghindari serangan musuh '), write(A),!.
+write_enemy_attack(A,Z) :-
 	write('Musuh '), write(A),write(' deal '),write(Z),write(' damage'),!.
 enemy_attack :-
 	enemy(A,_,_,Att,_),
@@ -87,7 +87,7 @@ enemy_attack :-
 	(Z<0 -> Z is 0;
 	Z is Z),
 	X is F - Z,
-	write_enemy_attack(X,A,Z),
+	write_enemy_attack(A,Z),
 	nl,nl,
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
@@ -104,7 +104,7 @@ sp_attack :-
 	random(2,5,Z),
 	sp_attack_do(Z),
 	assertz(cooldown(4)),
-	retract(cooldown(0)).
+	retract(cooldown(0)),!.
 sp_attack :-
 	cooldown(X),
 	write('Special attack tidak bisa digunakan!'),nl,
@@ -125,7 +125,7 @@ nigerun(X) :-
 	tambahan_nigeru,!.
 nigeru :-
 	random(1,3,Z),
-	write(Z),nl,
+	nl,
 	nigerun(Z).
 	
 	
