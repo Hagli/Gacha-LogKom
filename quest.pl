@@ -46,9 +46,9 @@ quest_finish(0,0,0) :-
 	Expi is Exp+A,Counti is Count+B,
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
-	write('Kau mendapatkan '),write(A),write(' exp'),nl,
+	write('Kau mendapatkan tambahan '),write(A),write(' exp'),nl,
 	asserta(money(Counti)),retract(money(Count)),
-	write('Kau mendapatkan '),write(B),write(' money'),nl,!.
+	write('Kau mendapatkan tambahan '),write(B),write(' money'),nl,!.
 quest_finish(-1,-1,-1) :-
 	questing(_,_,_),!.
 quest_finish(_,_,_) :-
