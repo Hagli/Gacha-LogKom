@@ -144,7 +144,8 @@ battle_loop :- /*akhir battle jika player mati*/
 	retract(player(_,_,_,_,_,_,_,_,_,_,_)),
 	retract(enemy(_,_,_,_,_)),
 	retract(cooldown(_)),
-	retract(run(_)),!.
+	retract(run(_)),
+	halt,!.
 battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	call(enemy(A,Y,Hp,Att,Def)),
 	Hp =< 0,

@@ -126,7 +126,8 @@ boss_battle_loop :- /*akhir battle jika player mati*/
 	write('Apalgi bocah sepertimu'),nl,
 	write('Kau telah mati'),nl,
 	retract(player(_,_,_,_,_,_,_,_,_,_,_)),
-	retract(cooldown(_)),!.
+	retract(cooldown(_)),
+	halt,!.
 
 boss_battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	call(enemy_boss(A,Y,Hp,Att,Def)),
