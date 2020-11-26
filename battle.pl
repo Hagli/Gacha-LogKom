@@ -118,13 +118,14 @@ tambahan_nigeru :-
 	Boi is 0,
 	asserta(enemy(A,Y,Boi,Att,Def)),
 	retract(enemy(A,Y,Hp,Att,Def)).
+nigerun(1) :-
+	write('Gagal kabur...'),nl,!.
 nigerun(X) :-
 	X > 1,
 	tambahan_nigeru,!.
-nigerun(1) :-
-	write('Gagal kabur...'),nl.
 nigeru :-
 	random(1,3,Z),
+	write(Z),nl,
 	nigerun(Z).
 	
 	
@@ -177,18 +178,19 @@ battle_loop :- /*main battle loop*/
 	write('-> Use Potion (Command = potion.)'),nl,
 	write('-> Run (Command = nigeru. :)'),nl,
 	read(Choice),nl,
-	battle_choice(Choice),enemy(_,_,H,_,_),
-	enemy_attack_or_not(H),
+	battle_choice(Choice),slash,
 	call(cooldown(Mate)),
 	(Mate = 0 -> Mates is 0; Mates is Mate-1),
 	asserta(cooldown(Mates)),
 	retract(cooldown(Mate)), 
 	battle_loop.
-	
+
 enemy_attack_or_not(H) :-
 	H > 0,enemy_attack,!.
 enemy_attack_or_not(_) :-
-	write('').
+	write(''),!.
+slash :-
+	enemy(_,_,H,_,_),enemy_attack_or_not(H).
 
 battle_choice(attack) :-
 	attack,!.
