@@ -47,7 +47,7 @@ item(33,accessory,ring,0,10,10,0,common,all).
 item(34,accessory,earrings,0,5,15,0,common,all).
 
 /*POTION*/
-item(35,potion,hp_potion,0,0,0,50,common,all).
+item(35,potion,hp_potion,0,0,0,15,common,all).
 
 /*DROP CHANCE*/
 rarity(1,common).

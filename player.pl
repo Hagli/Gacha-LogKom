@@ -10,6 +10,9 @@ job(sorcerer).
 /* player stat */
 /* player (name,job,weapon,armor,accesory,level,exp,attack,defense,hp,recovery) */
 /* semua stat saat level 1 hanya ada dari equipment */
+/*DEFINISI MAX HP*/
+:- dynamic(max_hp/1).
+max_hp(20).
 :- dynamic(player/11).
 createSwordsman(A) :-
 	asserta(player(A,swordsman,rusty_sword,fur_armor,none,1,0,25,20,20,0)),
@@ -31,6 +34,9 @@ lvl_up :-
 	write('Defense: '),write(Y),nl,
 	write('HP: '),write(Z),nl,
 	assertz(player(Name,Job,Weapon,Armor,Acc,W,V,X,Y,Z,Recc)),
-	retract(player(Name,Job,Weapon,Armor,Acc,Lvl,Exp,Att,Def,Hp,Recc)).
+	retract(player(Name,Job,Weapon,Armor,Acc,Lvl,Exp,Att,Def,Hp,Recc)),
+	/*changing da max hp 8*/
+	max_hp(HP), NewHP is HP+Z,
+	assertz(max_hp(NewHP)), retract(max_hp(HP)).
 	
 player(my_boi,swordsman,rusty_sword,fur_armor,none,1,0,25,20,20,0).

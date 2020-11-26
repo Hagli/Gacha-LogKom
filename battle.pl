@@ -28,7 +28,38 @@ enemy_appear(_,Y) :-
 	Def is Y*8 + 6,
 	asserta(enemy(wolf,Y,HP,Att,Def)).
 	
-	
+potion:-
+	(
+		\+kept(hp_potion,Count) -> write('Anda tidak memiliki hp potion.');
+		kept(hp_potion,Count) ->
+			(
+			Count=<0 -> write('Anda tidak memiliki hp potion.'),nl;
+			Count>0 -> determine_hp
+		)
+	).
+determine_hp:-
+		item(_,_,hp_potion,_,_,_,Recovery,_,_),
+		max_hp(MaxHP),
+		player(_,_,_,_,_,_,_,_,_,Health,_), NowHealth is Health+Recovery,
+		(
+			NowHealth > MaxHP -> increase_hp(MaxHP);
+			NowHealth =< MaxHP -> increase_hp(NowHealth)
+		).
+
+increase_hp(NewHealth):-
+		/*MENGUBAH FAKTA*/	
+		kept(hp_potion,Count),
+		NewCount is Count-1,
+		player(A,B,C,D,E,F,G,H,I,_,J),
+		retract(player(A,B,C,D,E,F,G,H,I,_,J)),
+		assertz(player(A,B,C,D,E,F,G,H,I,NewHealth,J)),
+		assertz(kept(hp_potion,NewCount)),
+		retract(kept(hp_potion,Count)),
+		inventory(Filled), NewFilled is Filled-1,
+		asserta(space_Filled(NewFilled)),
+		retract(space_Filled(Filled)),
+		write('Anda meminum sebotol hp potion! Health anda bertambah sebanyak 15 poin!'),nl.
+
 attack :-
 	player(_,_,_,_,_,_,_,Y,_,_,_),
 	call(enemy(A,Lv,HP,Att,Def)),
@@ -140,7 +171,7 @@ battle_loop :- /*main battle loop*/
 	write('Apa yang akan kau lakukan?'),nl,
 	write('-> Attack (Command = attack.)'),nl,
 	write('-> Special Attack (Command = sp_attack.)'),nl,
-	write('-> Use Potion (Command = blm dibuat)'),nl,
+	write('-> Use Potion (Command = potion.)'),nl,
 	write('-> Run (Command = nigeru. :)'),nl,
 	read(Choice),nl,
 	battle_choice(Choice),call(enemy(_,_,H,_,_)),
@@ -157,6 +188,8 @@ battle_choice(sp_attack) :-
 	sp_attack,!.
 battle_choice(nigeru) :-
 	nigeru,!.
+battle_choice(potion):-
+	potion,!.
 battle_choice(_) :-
 	write('Kau kehilangan keseimbanganmu!'),nl,
 	write('Musuhmu menggunakan kesempatan ini untuk menyerang!'),nl.
