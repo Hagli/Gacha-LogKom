@@ -4,7 +4,7 @@
 get_enemy :-
 	random(0,99,X),
 	player(_,_,_,_,_,Level,_,_,_,_,_),
-	Bronto is Level+3,
+	Bronto is Level+2,
 	random(Level,Bronto,Y),
 	enemy_appear(X,Y),!.
 enemy_appear(X,Y) :- 
@@ -101,13 +101,13 @@ battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	Xe is Y+6,random(Y,Xe,Z),!,
 	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	Expi is Exp+Z,
-	write('Musuh '),write(A),write(' telah dikalahkan'),nl,
+	write('Musuh '),write(A),write(' telah dikalahkan!'),nl,
 	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(cooldown(_)),
-	retract(run(_)).
+	retract(run(_)),nl.
 battle_loop :- /*main battle loop*/
 	call(enemy(_,_,Hp,Att,Def)),
 	call(player(_,_,_,_,_,_,_,B,C,D,_)),
@@ -134,7 +134,7 @@ battle_loop :- /*main battle loop*/
 	battle_loop.
 start_battle :-
 	get_enemy,
-	asserta(cooldown(3)), /*untuk sp_attack cooldown*/
+	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
 	asserta(run(0)), /*menandakan apakah player berhasil lari atau tdk*/
 	call(enemy(A,Y,_,_,_)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
