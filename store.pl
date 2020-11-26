@@ -13,7 +13,6 @@ store:-
 
 serve:-
     money(Count),
-    Remainder is Count-500,
     write('What do you want to buy? (input with number)'),
     nl,
     write('1. Gacha (500 gold)'),
