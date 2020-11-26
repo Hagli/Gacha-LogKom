@@ -32,11 +32,11 @@ lvl_up :-
 	write('Level '),write(W),nl,
 	write('Attack: '),write(X),nl,
 	write('Defense: '),write(Y),nl,
-	write('HP: '),write(Z),nl,
 	assertz(player(Name,Job,Weapon,Armor,Acc,W,V,X,Y,Z,Recc)),
 	retract(player(Name,Job,Weapon,Armor,Acc,Lvl,Exp,Att,Def,Hp,Recc)),
 	/*changing da max hp 8*/
-	max_hp(HP), NewHP is HP+Z,
-	assertz(max_hp(NewHP)), retract(max_hp(HP)).
+	max_hp(HP), NewHP is HP+1+C,
+	assertz(max_hp(NewHP)), retract(max_hp(HP)),
+	write('HP: '),write(Z),write('/'),write(NewHP),nl.
 	
 player(my_boi,swordsman,rusty_sword,fur_armor,none,1,0,25,20,20,0).
