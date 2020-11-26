@@ -29,3 +29,116 @@ mult_itemSave(Y,X) :-
 	itemSave(X),
 	Z is Y-1,
 	mult_itemSave(Z,X).
+
+equip(X):-
+    (\+kept(X,Y)->write('Anda tidak memiliki equipment itu.'),nl;
+    kept(X,Y)->lanjut_equip(X)
+    ),!.
+
+lanjut_equip(X):-
+    kept(X,Y),
+    (
+        Y=<0 -> write('Anda tidak memiliki equipment itu.'),nl;
+        Y>0 -> equip_class_check(X)
+    ).
+equip_class_check(X):-
+    item(_,_,X,_,_,_,_,_,Class),
+    player(_,PlayerClass,_,_,_,_,_,_,_,_,_),
+    (
+        Class=PlayerClass -> change_equip(X);
+        Class=all ->change_equip(X);
+        \+ Class=PlayerClass -> write('Anda tidak bisa menggunakan equipment itu.'),nl
+    ).
+change_equip(X):-
+    item(_,Type,X,_,_,_,_,_,_),
+    (
+        Type=weapon -> change_weapon(X);
+        Type=armor -> change_armor(X);
+        Type=accessory -> change_acc(X)
+    ).
+change_weapon(X):-
+    item(_,_,X,Atk,_,_,_,_,_),
+    kept(X,Y),
+    player(A,B,OldWeapon,C,D,E,F,OldAtk,G,H,I),
+    item(_,_,OldWeapon,OldWeaponAtk,_,_,_,_,_),
+    NewAtk is OldAtk-OldWeaponAtk+Atk,
+    NewY is Y-1,
+    /*player ganti senjata*/
+    retract(player(A,B,OldWeapon,C,D,E,F,OldAtk,G,H,I)),
+    asserta(player(A,B,X,C,D,E,F,NewAtk,G,H,I)),
+    /*ganti inventory*/
+    retract(kept(X,Y)),
+    asserta(kept(X,NewY)),
+    asserta(kept(OldWeapon,1)).
+
+change_armor(X):-
+    item(_,_,X,_,Def,HP,_,_,_),
+    kept(X,Y),
+    player(A,B,C,OldWeapon,D,E,F,G,OldDef,OldHP,H),
+    item(_,_,OldWeapon,_,OldWeaponDef,OldWeaponHP,_,_,_),
+    NewDef is OldDef-OldWeaponDef+Def,
+    NewHP is OldHP-OldWeaponHP+HP,
+    NewY is Y-1,
+    /*player ganti senjata*/
+    retract(player(A,B,C,OldWeapon,D,E,F,G,OldDef,OldHP,H)),
+    asserta(player(A,B,C,X,D,E,F,G,NewDef,NewHP,H)),
+    /*ganti inventory*/
+    retract(kept(X,Y)),
+    asserta(kept(X,NewY)),
+    asserta(kept(OldWeapon,1)),
+    /*MAX HP change*/
+    max_hp(OldMaxHP),
+    NewMaxHp is OldMaxHP-OldWeaponHP+HP,
+    retract(max_hp(OldMaxHP)), asserta(max_hp(NewMaxHp)).
+
+change_acc(X):-
+    player(_,_,_,_,OldWeapon,_,_,_,_,_,_),
+    (
+        OldWeapon=none -> change_acc_none(X);
+        \+OldWeapon=none -> change_acc_lanjutan(X)
+    ).
+
+change_acc_none(X):-
+    item(_,_,X,Atk,Def,HP,_,_,_),
+    kept(X,Y),
+    player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H),
+    /*new stat*/
+    NewAtk is OldAtk+Atk,
+    NewDef is OldDef+Def,
+    NewHP is OldHP+HP,
+    NewY is Y-1,
+    /*player ganti senjata*/
+    retract(player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H)),
+    asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
+    /*ganti inventory*/
+    retract(kept(X,Y)),
+    asserta(kept(X,NewY)),
+    inventory(Filled),
+    NewFilled is Filled-1,
+    space_Filled(NewFilled),
+    /*MAX HP change*/
+    max_hp(OldMaxHP),
+    NewMaxHp is OldMaxHP+HP,
+    retract(max_hp(OldMaxHP)), asserta(max_hp(NewMaxHp)).
+
+change_acc_lanjutan(X):-
+    item(_,_,X,Atk,Def,HP,_,_,_),
+    kept(X,Y),
+    player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H),
+    item(_,_,OldWeapon,OldWeaponAtk,OldWeaponDef,OldWeaponHP,_,_,_),
+    /*new stat*/
+    NewAtk is OldAtk-OldWeaponAtk+Atk,
+    NewDef is OldDef-OldWeaponDef+Def,
+    NewHP is OldHP-OldWeaponHP+HP,
+    NewY is Y-1,
+    /*player ganti senjata*/
+    retract(player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H)),
+    asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
+    /*ganti inventory*/
+    retract(kept(X,Y)),
+    asserta(kept(X,NewY)),
+    asserta(kept(OldWeapon,1)),
+    /*MAX HP change*/
+    max_hp(OldMaxHP),
+    NewMaxHp is OldMaxHP-OldWeaponHP+HP,
+    retract(max_hp(OldMaxHP)), asserta(max_hp(NewMaxHp)).
