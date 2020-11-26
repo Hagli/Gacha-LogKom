@@ -75,16 +75,19 @@ attack :-
 	call(enemy(A,Lv,HP,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)),!.*/
 	
-	
+write_enemy_attack(X,A,_) :-
+	X =< 0,write('Kau menghindari serangan musuh '), write(A),!.
+write_enemy_attack(_,A,Z) :-
+	write('Musuh '), write(A),write(' deal '),write(Z),write(' damage'),!.
 enemy_attack :-
 	enemy(A,_,_,Att,_),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
 	random(0,3,Plus),
 	Z is Att + 3 - G + Plus,
-	(Z<0 -> Z is 0; Z is Z),
+	(Z<0 -> Z is 0;
+	Z is Z),
 	X is F - Z,
-	(Z =< 0 -> (write('Kau menghindari serangan musuh '), write(A));
-	(write('Musuh '), write(A),write(' deal '),write(Z),write(' damage'))),
+	write_enemy_attack(X,A,Z),
 	nl,nl,
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
@@ -115,15 +118,14 @@ tambahan_nigeru :-
 	Boi is 0,
 	asserta(enemy(A,Y,Boi,Att,Def)),
 	retract(enemy(A,Y,Hp,Att,Def)).
-/*nigerun(X) :-
+nigerun(X) :-
 	X > 1,
 	tambahan_nigeru,!.
 nigerun(1) :-
-	write('Gagal kabur'),nl.*/
+	write('Gagal kabur...'),nl.
 nigeru :-
 	random(1,3,Z),
-	(Z > 1 -> tambahan_nigeru;
-	write('Gagal kabur...')).
+	nigerun(Z).
 	
 	
 battle_loop :- /*akhir battle jika player berhasil kabur*/
@@ -165,7 +167,8 @@ battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 battle_loop :- /*main battle loop*/
 	call(enemy(_,_,Hp,Att,Def)),
 	call(player(_,_,_,_,_,_,_,B,C,D,_)),
-	write('HP: '),write(D),write('                   HP musuh: '),write(Hp),nl,
+	call(max_hp(Poggers)),
+	write('HP: '),write(D),write('/'),write(Poggers),write('                   HP musuh: '),write(Hp),nl,
 	write('Attack: '),write(B),write('                   Attack musuh: '),write(Att),nl,
 	write('Defense: '),write(C),write('                   Defense musuh: '),write(Def),nl,
 	write('Apa yang akan kau lakukan?'),nl,
@@ -174,14 +177,19 @@ battle_loop :- /*main battle loop*/
 	write('-> Use Potion (Command = potion.)'),nl,
 	write('-> Run (Command = nigeru. :)'),nl,
 	read(Choice),nl,
-	battle_choice(Choice),call(enemy(_,_,H,_,_)),
-	(H > 0 -> enemy_attack; 2 =:= 2),
+	battle_choice(Choice),enemy(_,_,H,_,_),
+	enemy_attack_or_not(H),
 	call(cooldown(Mate)),
 	(Mate = 0 -> Mates is 0; Mates is Mate-1),
 	asserta(cooldown(Mates)),
 	retract(cooldown(Mate)), 
 	battle_loop.
 	
+enemy_attack_or_not(H) :-
+	H > 0,enemy_attack,!.
+enemy_attack_or_not(_) :-
+	write('').
+
 battle_choice(attack) :-
 	attack,!.
 battle_choice(sp_attack) :-
@@ -192,7 +200,7 @@ battle_choice(potion):-
 	potion,!.
 battle_choice(_) :-
 	write('Kau kehilangan keseimbanganmu!'),nl,
-	write('Musuhmu menggunakan kesempatan ini untuk menyerang!'),nl.
+	write('Musuhmu menggunakan kesempatan ini untuk menyerang!'),nl,!.
 	
 
 start_battle :-

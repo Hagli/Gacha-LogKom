@@ -69,5 +69,6 @@ show_stat :-
 	write('Exp: '),write(G),nl,
 	write('Attack: '),write(H),nl,
 	write('Defense: '),write(I),nl,
-	write('HP: '),write(J),nl,
-	write('Recovery: '),write(K).
+	write('HP: '),write(J),write('/'),max_hp(Acr),write(Acr),nl,
+	write('Recovery: '),write(K),nl,
+	money(Baab),write('Money: '),write(Baab).
