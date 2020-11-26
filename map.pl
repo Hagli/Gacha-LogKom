@@ -52,6 +52,8 @@ d :- retract(posisiP(X,Y)),
 	printmap,
 	random(0,6,Tea),
 	heaven_or_hell(Tea).
+	
+	
 show_stat :-
 	player(A,B,C,D,E,F,G,H,I,J,K),
 	write('Name: '),write(A),nl,
