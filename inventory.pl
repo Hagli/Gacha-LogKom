@@ -115,7 +115,8 @@ change_acc_none(X):-
     asserta(kept(X,NewY)),
     inventory(Filled),
     NewFilled is Filled-1,
-    space_Filled(NewFilled),
+    asserta(space_Filled(NewFilled)),
+    retract(space_Filled(Filled)),
     /*MAX HP change*/
     max_hp(OldMaxHP),
     NewMaxHp is OldMaxHP+HP,

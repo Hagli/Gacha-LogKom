@@ -36,7 +36,7 @@ potion:-
 			Count=<0 -> write('Anda tidak memiliki hp potion.'),nl;
 			Count>0 -> determine_hp
 		)
-	).
+	),!.
 determine_hp:-
 		item(_,_,hp_potion,_,_,_,Recovery,_,_),
 		max_hp(MaxHP),
@@ -58,7 +58,7 @@ increase_hp(NewHealth):-
 		inventory(Filled), NewFilled is Filled-1,
 		asserta(space_Filled(NewFilled)),
 		retract(space_Filled(Filled)),
-		write('Anda meminum sebotol hp potion! Health anda bertambah sebanyak 15 poin!'),nl.
+		write('Anda meminum sebotol hp potion! Health anda bertambah sebanyak 30 poin!'),nl.
 
 attack :-
 	player(_,_,_,_,_,_,_,Y,_,_,_),
@@ -76,6 +76,7 @@ attack :-
 	retract(enemy(A,Lv,HP,Att,Def)),!.*/
 	
 write_enemy_attack(A,Z) :-
+	Z =< 0,
 	write('Kau menghindari serangan musuh '), write(A),!.
 write_enemy_attack(A,Z) :-
 	write('Musuh '), write(A),write(' deal '),write(Z),write(' damage'),!.
