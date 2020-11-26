@@ -1,5 +1,6 @@
 :- dynamic(enemy/5).
 :- dynamic(cooldown/1).
+:- dynamic(run/1).
 get_enemy :-
 	random(0,99,X),
 	player(_,_,_,_,_,Level,_,_,_,_,_),
@@ -79,14 +80,14 @@ nigerun(_) :-
 nigeru :-
 	random(1,3,Z),
 	nigerun(Z).
-battle_loop :-
+battle_loop :- /*akhir battle jika player berhasil kabur*/
 	run(1),
 	call(enemy(A,Y,Hp,Att,Def)),
 	Hp =< 0,write('Berhasil kabur dari musuh!'),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(run(_)),
 	retract(cooldown(_)),!.
-battle_loop :-
+battle_loop :- /*akhir battle jika player mati*/
 	call(player(_,_,_,_,_,_,_,_,_,D,_)),
 	D =< 0,
 	write('Kau telah mati'),nl,
@@ -94,20 +95,20 @@ battle_loop :-
 	retract(enemy(_,_,_,_,_)),
 	retract(cooldown(_)),
 	retract(run(_)),!.
-battle_loop :-
+battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	call(enemy(A,Y,Hp,Att,Def)),
-	Hp =< 0,write('Musuh '),write(A),write(' telah dikalahkan'),nl,
-	Xe is Y+6,
-	random(Y,Xe,Z),
-	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
-	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,HP,Recc)),
+	Hp =< 0,
+	Xe is Y+6,random(Y,Xe,Z),!,
+	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	Expi is Exp+Z,
-	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,HP,Recc)),
-	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,HP,Recc)),
+	write('Musuh '),write(A),write(' telah dikalahkan'),nl,
+	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
+	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
+	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	retract(enemy(A,Y,Hp,Att,Def)),
 	retract(cooldown(_)),
-	retract(run(_)),!.
-battle_loop :-
+	retract(run(_)).
+battle_loop :- /*main battle loop*/
 	call(enemy(_,_,Hp,Att,Def)),
 	call(player(_,_,_,_,_,_,_,B,C,D,_)),
 	write('HP: '),write(D),write('                   HP musuh: '),write(Hp),nl,
@@ -125,16 +126,18 @@ battle_loop :-
 		Choice='nigeru'-> nigeru;
 		battle_loop
     ),call(enemy(_,_,H,_,_)),
-	(H > 0 -> enemy_attack; battle_loop),
+	(H > 0 -> enemy_attack; 2 = 2),
 	call(cooldown(Mate)),
-	Mates is Mate-1,
+	(Mate = 0 -> Mates is 0; Mates is Mate-1),
 	asserta(cooldown(Mates)),
 	retract(cooldown(Mate)), 
 	battle_loop.
 start_battle :-
 	get_enemy,
 	asserta(cooldown(3)), /*untuk sp_attack cooldown*/
-	asserta(run(0)),
+	asserta(run(0)), /*menandakan apakah player berhasil lari atau tdk*/
 	call(enemy(A,Y,_,_,_)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
-	battle_loop.
+	battle_loop,
+	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
+	Lvli is 5*Lv, Exp >= Lvli, lvl_up.
