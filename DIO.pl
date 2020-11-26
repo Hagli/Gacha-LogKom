@@ -10,19 +10,19 @@ fight_the_boss:-
     posisiB(X,Y)->start_battle_boss
     ).
 
-validate(Z) :-
-	Z < 0, Z is 0,!.
-validate(Z) :-
-	Z is Z.
+validate(Z,Zey) :-
+	Z < 0, Zey is 0,!.
+validate(Z,Zey) :-
+	Zey is Z.
 attack_boss :-
 	player(_,_,_,_,_,_,_,Y,_,_,_),
 	enemy_boss(A,Lv,HP,Att,Def),
 	random(0,5,Plus),
 	Z is Y + 6 - Def + Plus,
-	validate(Z),
-	X is HP - Z,
-	(Z =< 0 -> (write('Dio '),write('menghindari seranganmu!'));
-	(write('Deal '),write(Z),write(' damage'))),nl,
+	validate(Z,Zey),
+	X is HP - Zey,
+	(Zey =< 0 -> (write('Dio '),write('menghindari seranganmu!'));
+	(write('Deal '),write(Zey),write(' damage'))),nl,
 	assertz(enemy_boss(A,Lv,X,Att,Def)),
 	retract(enemy_boss(A,Lv,HP,Att,Def)).
 	
@@ -47,8 +47,8 @@ which_attack(1) :-
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
 which_attack(Poi) :-
-	Poi < 5,write('Heh, kau cukup kuat'),nl,
-	enemy_boss(A,_,Hp,Att,_),
+	Poi < 5,!,write('Heh, kau cukup kuat'),nl,
+	enemy_boss(A,Bes,Hp,Att,Dicc),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
 	random(0,3,Plus),
 	Z is Att + 5 - G + Plus,
@@ -59,8 +59,8 @@ which_attack(Poi) :-
 	write_boss_attack(Z),
 	write('Dio mendapatkan kembali '),write(Z),write(' health'),nl,
 	nl,nl,
-	assertz(enemy_boss(A,_,Bro,Att,_)),
-	retract(enemy_boss(A,_,Hp,Att,_)),
+	assertz(enemy_boss(A,Bes,Bro,Att,Dicc)),
+	retract(enemy_boss(A,Bes,Hp,Att,Dicc)),
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
 which_attack(_) :-
@@ -78,7 +78,8 @@ which_attack(_) :-
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
 boss_attack :-
 	random(1,10,Z),
-	which_attack(Z).
+	which_attack(Z),
+	sleep(1).
 	
 sp_attack_do_boss(1) :-
 	attack_boss.
@@ -136,7 +137,7 @@ boss_battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	call(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	Expi is Exp+Z,
 	Ye is Xe+Z,
-	write('Dio '),write(A),write(' telah dikalahkan!'),nl,
+	write('Dio '),write(' telah dikalahkan!'),nl,
 	write('Kau mendapatkan '),write(Z),write(' exp!'),nl,
 	call(money(Fgc)),
 	write('Kau mendapatkan '),write(Ye),write(' money!'),nl,
@@ -146,8 +147,13 @@ boss_battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
 	write('Tidak mungkin...'),nl,write('Aku,Dio....kalah?'),nl,
 	write('Selamat, kau berhasil menyelamatkan dunia ini'),nl,
-	retract(enemy(A,Y,Hp,Att,Def)),
-	retract(cooldown(_)),nl,!.
+	retract(enemy_boss(A,Y,Hp,Att,Def)),
+	retract(cooldown(_)),nl,
+	write('"BA-BAKANAAAA!!! KONO DIO DA!!!"'),nl,
+	write('Terakan dari monster yang bernama DIO itu menggetarkan seluruh tanah di lantai ini.'),nl, 
+	write('Walaupun ini hanyalah dunia virtual, tapi teriakannya itu mungkin saja dapat membuat gendang telingaku pecah di dunia nyata.'),nl,
+	write('Sampai awal hingga akhir, DIO benar-benar mengerikan...'),nl,
+	write('Akan tetapi, tujuanku telah tercapai. AKu telah mengalahkannya tanpa harus mengorbankan kawan-kawanku. Dengan begini...aku bisa terus maju.'),halt,!.
 	
 boss_battle_loop :-
 	call(enemy_boss(_,_,Hp,Att,Def)),

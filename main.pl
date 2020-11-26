@@ -45,25 +45,25 @@ start:-
     write('Enter your name :'),nl,
     read(Name),
     createSwordsman(Name),
-    story.
+    story(Name).
  character_create_archer:-
     write('Enter your name :'),nl,
     read(Name),
     createSwordsman(Name),
-    story.
+    story(Name).
  character_create_sorcerer:-
     write('Enter your name :'),nl,
     read(Name),
     createSwordsman(Name),
-    story.
+    story(Name).
 
-story:-
+story(Name):-
     nl,nl,
     write('Aincrad, 2023'),nl,
     sleep(1),
     write('Sudah setahun sejak pembuat game ini menjebak kami di dunia virtual ini. Dia menjebak 10.000 orang di game yang sangat mengerikan ini—dimana jika mati di game ini maka kami akan mati di dunia nyata—tanpa alasan yang jelas. Kami hanya bisa keluar dari game ini jika telah mengalahkan bos di setiap lantai. Mungkin terdengar gampang, tapi melawan 100 bos itu sangat sulit. Kami telah kehilangan lebih dari setengah pemain.'),nl,nl,
     sleep(1),
-    write('Aku, Hilag, adalah salah satu pemain yang berusaha untuk keluar dari game ini. Aku memutuskan untuk berkelana sendirian agar tidak ada korban lain yang tidak di perlukan.'),nl,
+    write('Aku, '),write(Name),write(' adalah salah satu pemain yang berusaha untuk keluar dari game ini. Aku memutuskan untuk berkelana sendirian agar tidak ada korban lain yang tidak di perlukan.'),nl,
     write('Terakhir kali aku melakukan petualangan seperti ini, aku kehilangan ketiga temanku. Iggy, Avdol, dan Kakyoin. Aku tidak ingin kehilangan siapapun lagi.'),nl,nl,
     sleep(2),
     write('Sekarang aku berada di lantai ke 44. Pegunungan yang diselimuti salju ini dipenuhi oleh slime, goblin, dan wolf. Pada ujung lantai ini,  pintu menuju lantai selanjutnya dijaga oleh seekor naga bernama DIO yang sampai sekarang belum pernah dikalahkan siapa-siapa.'),nl,nl,
