@@ -29,9 +29,9 @@ item(21,weapon,merlins_staff,250,0,0,0,legendary,sorcerer).
 /*ITEM ARMOR*/
 item(22,armor,fur_armor,0,20,20,0,common,all).
 
-item(23,armor,chainmail_armor,0,40,30,0,uncommon,warrior).
-item(24,armor,iron_armor,0,70,40,0,rare,warrior).
-item(25,armor,steel_armor,0,100,60,0,legendary,warrior).
+item(23,armor,chainmail_armor,0,40,30,0,uncommon,swordsman).
+item(24,armor,iron_armor,0,70,40,0,rare,swordsman).
+item(25,armor,steel_armor,0,100,60,0,legendary,swordsman).
 
 item(26,armor,leather_armor,0,20,40,0,uncommon,archer).
 item(27,armor,elven_armor,0,40,60,0,rare,archer).

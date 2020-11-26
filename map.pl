@@ -1,7 +1,7 @@
 :- dynamic(posisiP/2).
 lebarMap(10).
 panjangMap(10).
-posisiP(1,1).
+posisiP(5,6).
 posisiS(5,6).
 posisiQ(2,4).
 upline(P,_) :- P=:=0.
