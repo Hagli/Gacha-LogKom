@@ -1,5 +1,6 @@
 # Tugas Besar IF2121 2020/2021
-Kelompok 12 K-01
+Kelompok 12 - Logkom Crusaders
+K-01
 - Yusuf Alwansyah Hilmy/13519005
 - M. Galih Raihan Ramadhan/13519017
 - Christian Tobing/13519109
