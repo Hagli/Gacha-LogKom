@@ -146,8 +146,6 @@ boss_battle_loop :- /*akhir player jika musuh berhasil dikalahkan*/
 	asserta(money(Yee)),retract(money(Fgc)),
 	asserta(player(Name,Class,Weapom,Armor,Acc,Lv,Expi,Attack,Defense,Hpe,Recc)),
 	retract(player(Name,Class,Weapom,Armor,Acc,Lv,Exp,Attack,Defense,Hpe,Recc)),
-	write('Tidak mungkin...'),nl,write('Aku,Dio....kalah?'),nl,
-	write('Selamat, kau berhasil menyelamatkan dunia ini'),nl,
 	retract(enemy_boss(A,Y,Hp,Att,Def)),
 	retract(cooldown(_)),nl,
 	write('"BA-BAKANAAAA!!! KONO DIO DA!!!"'),nl,
