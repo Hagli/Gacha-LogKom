@@ -151,7 +151,10 @@ change_acc_none(X):-
     asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
     /*ganti inventory*/
     retract(kept(X,Y)),
-    asserta(kept(X,NewY)),
+    (
+        NewY > 0 -> asserta(kept(X,NewY));
+        NewY = 0 -> write('') /*do nothing*/
+    ),
     inventory(Filled),
     NewFilled is Filled-1,
     asserta(space_Filled(NewFilled)),

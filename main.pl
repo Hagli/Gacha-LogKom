@@ -52,12 +52,12 @@ start:-
  character_create_archer:-
     write('Enter your name :'),nl,
     read(Name),
-    createSwordsman(Name),
+    createArcher(Name),
     story(Name).
  character_create_sorcerer:-
     write('Enter your name :'),nl,
     read(Name),
-    createSwordsman(Name),
+    createSorcerer(Name),
     story(Name).
 
 story(Name):-
