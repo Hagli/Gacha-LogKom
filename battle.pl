@@ -60,16 +60,21 @@ increase_hp(NewHealth):-
 		retract(space_Filled(Filled)),
 		write('Anda meminum sebotol hp potion! Health anda bertambah sebanyak 30 poin!'),nl.
 
+validate(Z,Zey) :-
+	Z < 0, Zey is 0,!.
+validate(Z,Zey) :-
+	Zey is Z.
+	
 attack :-
 	inGame,
 	player(_,_,_,_,_,_,_,Y,_,_,_),
 	call(enemy(A,Lv,HP,Att,Def)),
 	random(0,5,Plus),
 	Z is Y + 6 - Def + Plus,
-	(Z<0 -> Z is 0;Z is Z),
-	X is HP - Z,
-	(Z =< 0 -> (write('Musuh '),write(A),write('menghindari seranganmu!'));
-	(write('Deal '),write(Z),write(' damage'))),nl,
+	validate(Z,Zey),
+	X is HP - Zey,
+	(Zey =< 0 -> (write('Musuh '),write(A),write('menghindari seranganmu!'));
+	(write('Deal '),write(Zey),write(' damage'))),nl,
 	assertz(enemy(A,Lv,X,Att,Def)),
 	retract(enemy(A,Lv,HP,Att,Def)).
 /*attack :-
@@ -81,15 +86,16 @@ write_enemy_attack(A,Z) :-
 	write('Kau menghindari serangan musuh '), write(A),!.
 write_enemy_attack(A,Z) :-
 	write('Musuh '), write(A),write(' deal '),write(Z),write(' damage'),!.
+
+	
 enemy_attack :-
 	enemy(A,_,_,Att,_),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
 	random(0,3,Plus),
 	Z is Att + 3 - G + Plus,
-	(Z<0 -> Z is 0;
-	Z is Z),
-	X is F - Z,
-	write_enemy_attack(A,Z),
+	validate(Z,Zey),
+	X is F - Zey,
+	write_enemy_attack(A,Zey),
 	nl,nl,
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
@@ -122,11 +128,12 @@ tambahan_nigeru :-
 	Boi is 0,
 	asserta(enemy(A,Y,Boi,Att,Def)),
 	retract(enemy(A,Y,Hp,Att,Def)).
-nigerun(1) :-
-	write('Gagal kabur...'),nl,!.
 nigerun(X) :-
 	X > 1,
 	tambahan_nigeru,!.
+nigerun(1) :-
+	!,
+	write('Gagal kabur...'),nl.
 nigeru :-
 	inGame,
 	random(1,3,Z),

@@ -11,10 +11,7 @@ fight_the_boss:-
     posisiB(X,Y)->start_battle_boss
     ).
 
-validate(Z,Zey) :-
-	Z < 0, Zey is 0,!.
-validate(Z,Zey) :-
-	Zey is Z.
+
 attack_boss :-
 	player(_,_,_,_,_,_,_,Y,_,_,_),
 	enemy_boss(A,Lv,HP,Att,Def),
