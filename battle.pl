@@ -310,7 +310,7 @@ write('                                                                         
 start_battle :-
 	inGame,
 	get_enemy,
-	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
+	asserta(cooldown(2)), /*untuk sp_attack cooldown*/
 	assertz(run(0)), /*menandakan apakah player berhasil lari atau tdk*/
 	call(enemy(A,Y,_,_,_)),
 	write('Sebuah level '),write(Y),write(' '),write(A), write(' telah muncul!'),nl,
