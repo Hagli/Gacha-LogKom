@@ -8,7 +8,7 @@ item(3,weapon,shinogi_zukuri,50,0,0,0,common,swordsman).
 item(4,weapon,kissaki_moroha_zukuri,70,0,0,0,uncommon,swordsman).
 item(5,weapon,elucidator,100,0,0,0,rare,swordsman).
 item(6,weapon,dragon_slayer,150,0,0,0,rare,swordsman).
-item(7,weapon,excalibur,200,0,0,0,legendary,swordsman).
+item(7,weapon,excalibur,250,0,0,0,legendary,swordsman).
 
 item(8,weapon,rusty_bow,20,0,0,0,common,archer).
 item(9,weapon,short_bow,30,0,0,0,common,archer).
