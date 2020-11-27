@@ -1,5 +1,7 @@
 :-include('player.pl').
-
+:- dynamic(playing/1).
+playing(0).
+inGame:- playing(X), X=1.
 play:-
     
 write('███████╗██╗███╗░░██╗░█████╗░██╗░░░░░  ██████╗░██╗███████╗░█████╗░██████╗░██████╗░███████╗'),nl,
@@ -58,6 +60,7 @@ start:-
     story(Name).
 
 story(Name):-
+   retract(playing(0)), asserta(playing(1)),
     nl,nl,
     write('Aincrad, 2023'),nl,
     sleep(1),

@@ -1,6 +1,7 @@
 :- dynamic(questing/3).
 questing(-1,-1,-1). /*state saat blm ada quest yang diterima*/
 quest :-
+	inGame,
 	posisiP(X,Y),
 	(\+posisiQ(X,Y)-> write('You are not at the guild.'),nl;
     posisiQ(X,Y)->quest_get
@@ -34,6 +35,7 @@ write_quest(A,B,C) :-
 	write('Bunuh '),write(B),write(' goblin'),nl,
 	write('Bunuh '),write(C),write(' wolf'),nl.
 show_quest :-
+	inGame,
 	questing(A,B,C),write_quest(A,B,C).
 	
 quest_finish(0,0,0) :-

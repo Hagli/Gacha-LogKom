@@ -61,6 +61,7 @@ increase_hp(NewHealth):-
 		write('Anda meminum sebotol hp potion! Health anda bertambah sebanyak 30 poin!'),nl.
 
 attack :-
+	inGame,
 	player(_,_,_,_,_,_,_,Y,_,_,_),
 	call(enemy(A,Lv,HP,Att,Def)),
 	random(0,5,Plus),
@@ -101,12 +102,14 @@ sp_attack_do(Z) :-
 	Y is Z-1,
 	sp_attack_do(Y).
 sp_attack :-
+	inGame,
 	cooldown(0),
 	random(2,5,Z),
 	sp_attack_do(Z),
 	assertz(cooldown(4)),
 	retract(cooldown(0)),!.
 sp_attack :-
+	inGame,
 	cooldown(X),
 	write('Special attack tidak bisa digunakan!'),nl,
 	write('Cooldown '),write(X),write(' turn'),nl,nl,
@@ -125,6 +128,7 @@ nigerun(X) :-
 	X > 1,
 	tambahan_nigeru,!.
 nigeru :-
+	inGame,
 	random(1,3,Z),
 	nl,
 	nigerun(Z).
@@ -208,6 +212,7 @@ battle_choice(_) :-
 	
 
 start_battle :-
+	inGame,
 	get_enemy,
 	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
 	assertz(run(0)), /*menandakan apakah player berhasil lari atau tdk*/

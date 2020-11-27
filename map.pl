@@ -33,28 +33,28 @@ printmap :-
 	write('D : DIO, The Final Boss'),nl,nl,!.
 	
 	
-w :- retract(posisiP(X,Y)),
+w :- inGame,retract(posisiP(X,Y)),
 	(X = 1 -> asserta(posisiP(X,Y)); 
 	Z is X-1, asserta(posisiP(Z,Y))),
 	printmap,
 	random(0,3,Tea),
 	(Tea < 2 -> start_battle;
 	write('Tidak ada musuh di sekitarmu')).
-s :- retract(posisiP(X,Y)),
+s :- inGame,retract(posisiP(X,Y)),
 	(X = 10 -> asserta(posisiP(X,Y)); 
 	Z is X+1, asserta(posisiP(Z,Y))),
 	printmap,
 	random(0,6,Tea),
 	(Tea < 2 -> start_battle;
 	write('Tidak ada musuh di sekitarmu')).
-a :- retract(posisiP(X,Y)),
+a :- inGame,retract(posisiP(X,Y)),
 	(Y = 1 -> asserta(posisiP(X,Y)); 
 	Z is Y-1, asserta(posisiP(X,Z))),
 	printmap,
 	random(0,6,Tea),
 	(Tea < 2 -> start_battle;
 	write('Tidak ada musuh di sekitarmu')).
-d :- retract(posisiP(X,Y)),
+d :- inGame,retract(posisiP(X,Y)),
 	(Y = 10 -> asserta(posisiP(X,Y)); 
 	Z is Y+1, asserta(posisiP(X,Z))),
 	printmap,

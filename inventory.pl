@@ -31,6 +31,7 @@ mult_itemSave(Y,X) :-
 	mult_itemSave(Z,X).
 
 equip(X):-
+    inGame,
     (\+kept(X,Y)->write('Anda tidak memiliki equipment itu.'),nl;
     kept(X,Y)->lanjut_equip(X)
     ),!.

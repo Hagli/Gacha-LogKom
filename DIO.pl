@@ -5,6 +5,7 @@ enemy_boss(dio,50,400,500,400).
 posisiB(10,10).
 
 fight_the_boss:-
+	inGame,
     posisiP(X,Y),
     (\+posisiB(X,Y)-> write('You are not at the entrance of the boss room.'),nl;
     posisiB(X,Y)->start_battle_boss
