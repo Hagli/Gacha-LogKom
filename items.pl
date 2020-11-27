@@ -39,7 +39,7 @@ item(28,armor,amber_armor,0,60,100,0,legendary,archer).
 
 item(29,armor,mage_robe,0,20,40,0,uncommon,sorcerer).
 item(30,armor,archmage_robe,0,30,60,0,rare,sorcerer).
-item(31,armor,jotunn,0,50,90,legendary,sorcerer).
+item(31,armor,jotunn,0,50,90,0,legendary,sorcerer).
 
 /*ACCESORY*/
 item(32,accessory,necklace,0,0,20,0,common,all).
