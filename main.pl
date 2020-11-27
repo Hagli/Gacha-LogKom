@@ -26,10 +26,11 @@ write('4. command d : gerak ke timur 1 langkah'),nl,
 write('6. command show_stat : untuk menunjukkan stat pemain saat ini'),nl,
 write('7. command show_inventory : untuk melihat daftar inventory yang dimiliki'),nl,
 write('8. command equip(something) : untuk menggunakan sebuah equipment'),nl,
-write('9. command store : untuk masuk ke dalam toko. Harus berada di tempat yang sama'),nl,
-write('10. command quest : untuk mengambil quest di guild'),nl,
-write('11. command show_quest : untuk melihat quest yang sedang diambil'),nl,
-write('12. command fight_the_boss : untuk melawan boss terakhir'),nl,nl,
+write('9. command discard(something) : untuk membuang sebuah item dari inventory'),nl,
+write('10. command store : untuk masuk ke dalam toko. Harus berada di tempat yang sama'),nl,
+write('11. command quest : untuk mengambil quest di guild'),nl,
+write('12. command show_quest : untuk melihat quest yang sedang diambil'),nl,
+write('13. command fight_the_boss : untuk melawan boss terakhir'),nl,nl,
 write('To start playing, enter "start." command.'),nl.
 
 start:-

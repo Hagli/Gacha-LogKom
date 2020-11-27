@@ -38,8 +38,24 @@ show_inventory:-
     ).
 print_items(X):-
     kept(X,Y),
-    item(_,_,X,_,_,_,_,_,Z),
-    write('- '),write(Y),write(' '),write(X),write('(Class : '),write(Z),write(' )'),nl.
+    item(_,A,X,_,_,_,_,B,Z),
+    write('- '),write(Y),write(' '),write(X),write(' ( Type : '),write(A),write('; Rarity : '),write(B),write('; Class : '),write(Z),write(' )'),nl.
+
+discard(X):-
+    (
+        \+ kept(X,_) -> write('Anda tidak memiliki item tersebut.'),nl;
+        kept(X,_) -> truly_discard(X)
+    ).
+
+truly_discard(X):-
+    kept(X,Y), NewY is Y-1,
+    (
+        NewY=0 -> retract(kept(X,Y));
+        NewY>0 -> retract(kept(X,Y)), assertz(kept(X,NewY))
+    ),
+    inventory(Filled), NewFilled is Filled-1,
+    retract(space_Filled(Filled)),
+    asserta(space_Filled(NewFilled)).
 
 equip(X):-
     inGame,
