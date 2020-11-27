@@ -77,3 +77,18 @@ story(Name):-
     write('Aku rasa, siapapun bisa mengalahkan naga ini, tetapi tidak ada yang berani. Oleh karena itulah, aku sendiri yang akan mengalahkannya.'),nl,nl,nl,
     sleep(3),
     printmap.
+
+help :-
+	write('Guide :'),nl,
+	write('1. command w : gerak ke utara 1 langkah'),nl,
+	write('2. command a : gerak ke barat 1 langkah'),nl,
+	write('3. command s : gerak ke selatan 1 langkah'),nl,
+	write('4. command d : gerak ke timur 1 langkah'),nl,
+	write('6. command show_stat : untuk menunjukkan stat pemain saat ini'),nl,
+	write('7. command show_inventory : untuk melihat daftar inventory yang dimiliki'),nl,
+	write('8. command equip(something) : untuk menggunakan sebuah equipment'),nl,
+	write('9. command discard(something) : untuk membuang sebuah item dari inventory'),nl,
+	write('10. command store : untuk masuk ke dalam toko. Harus berada di tempat yang sama'),nl,
+	write('11. command quest : untuk mengambil quest di guild'),nl,
+	write('12. command show_quest : untuk melihat quest yang sedang diambil'),nl,
+	write('13. command fight_the_boss : untuk melawan boss terakhir'),nl,nl.
