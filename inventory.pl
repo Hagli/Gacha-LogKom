@@ -30,6 +30,17 @@ mult_itemSave(Y,X) :-
 	Z is Y-1,
 	mult_itemSave(Z,X).
 
+show_inventory:-
+    inGame,
+    write('Item yang ada di inventory anda :'),nl,
+    forall(kept(X,_),
+        print_items(X)
+    ).
+print_items(X):-
+    kept(X,Y),
+    item(_,_,X,_,_,_,_,_,Z),
+    write('- '),write(Y),write(' '),write(X),write('Class : '),write(Z),write(' )'),nl.
+
 equip(X):-
     inGame,
     (\+kept(X,Y)->write('Anda tidak memiliki equipment itu.'),nl;
@@ -69,8 +80,17 @@ change_weapon(X):-
     asserta(player(A,B,X,C,D,E,F,NewAtk,G,H,I)),
     /*ganti inventory*/
     retract(kept(X,Y)),
-    asserta(kept(X,NewY)),
-    asserta(kept(OldWeapon,1)).
+    (
+        NewY > 0 -> asserta(kept(X,NewY)),change_inventory(OldWeapon,OldQty);
+        NewY = 0 -> change_inventory(OldWeapon,OldQty)
+    ).
+    
+
+change_inventory(OldWeapon,OldQty):-
+    (
+        \+kept(OldWeapon,OldQty) -> asserta(kept(OldWeapon,1));
+        kept(OldWeapon,OldQty) -> retract(kept(OldWeapon,OldQty)),NewOldQty is OldQty+1 ,asserta(kept(OldWeapon,NewOldQty))
+    ).
 
 change_armor(X):-
     item(_,_,X,_,Def,HP,_,_,_),
@@ -85,8 +105,10 @@ change_armor(X):-
     asserta(player(A,B,C,X,D,E,F,G,NewDef,NewHP,H)),
     /*ganti inventory*/
     retract(kept(X,Y)),
-    asserta(kept(X,NewY)),
-    asserta(kept(OldWeapon,1)),
+    (
+        NewY > 0 -> asserta(kept(X,NewY)),change_inventory(OldWeapon,OldQty);
+        NewY = 0 -> change_inventory(OldWeapon,OldQty)
+    ),
     /*MAX HP change*/
     max_hp(OldMaxHP),
     NewMaxHp is OldMaxHP-OldWeaponHP+HP,
@@ -138,8 +160,10 @@ change_acc_lanjutan(X):-
     asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
     /*ganti inventory*/
     retract(kept(X,Y)),
-    asserta(kept(X,NewY)),
-    asserta(kept(OldWeapon,1)),
+    (
+        NewY > 0 -> asserta(kept(X,NewY)),change_inventory(OldWeapon,OldQty);
+        NewY = 0 -> change_inventory(OldWeapon,OldQty)
+    ),
     /*MAX HP change*/
     max_hp(OldMaxHP),
     NewMaxHp is OldMaxHP-OldWeaponHP+HP,
