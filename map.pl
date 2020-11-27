@@ -30,7 +30,7 @@ printmap :-
 	write('Legenda :'),nl,
 	write('S : Store'),nl,
 	write('Q : Guild'),nl,
-	write('D : DIO, The Final Boss'),nl,nl,!.
+	write('B : DIO, The Final Boss'),nl,nl,!.
 	
 	
 w :- inGame,retract(posisiP(X,Y)),
