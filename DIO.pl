@@ -281,7 +281,7 @@ write_flavour(no) :-
 
 
 start_battle_boss :-
-	asserta(cooldown(0)), /*untuk sp_attack cooldown*/
+	asserta(cooldown(2)), /*untuk sp_attack cooldown*/
 	write('Hohoo...kau mendekatiku? (yes/no)'),nl,
 	read(Forward),
 	write_flavour(Forward),
