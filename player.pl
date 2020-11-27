@@ -38,3 +38,5 @@ lvl_up :-
 	max_hp(HP), NewHP is HP+1+C,
 	assertz(max_hp(NewHP)), retract(max_hp(HP)),
 	write('HP: '),write(Z),write('/'),write(NewHP),nl.
+	
+/*player(my_boi,swordsman,rusty_sword,fur_armor,none,444,444,444,444,444,0).*/

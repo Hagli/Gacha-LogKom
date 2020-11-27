@@ -31,22 +31,17 @@ write_boss_attack(Z) :-
 	Z =< 0,write('Kau menghindari serangan dio '),nl,
 	write('Tidak mungkin!'),nl,!.
 write_boss_attack(Z) :-
-	write('Dio '),write(' deal '),write(Z),write(' damage'),nl,
-	write('AHAHAHAHA'),nl,!.
+	write('Dio '),write(' deal '),write(Z),write(' damage'),nl,!.
+muda_muda(1) :-
+	which_attack(9).
+muda_muda(X) :-
+	which_attack(9),
+	Y is X-1,muda_muda(Y).
 which_attack(1) :-
 	write('Lihatlah kekuatanku!'),nl,
 	write('DUNIAWI!!'),nl,
-	enemy_boss(A,_,_,Att,_),
-	call(player(O,N,M,L,K,J,I,H,G,F,E)),
-	random(0,3,Plus),
-	Z is Att + 30 - G + Plus,
-	(Z<0 -> Z is 0;
-	Z is Z),
-	X is F - Z,
-	write_boss_attack(Z),
-	nl,nl,
-	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
-	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
+	random(2,5,Times),
+	muda_muda(Times).
 which_attack(Poi) :-
 	Poi < 5,!,write('Heh, kau cukup kuat'),nl,
 	enemy_boss(A,Bes,Hp,Att,Dicc),
@@ -65,8 +60,8 @@ which_attack(Poi) :-
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
 which_attack(_) :-
-	write('WWWWRRRYYYYYYYYY'),nl,
-	enemy_boss(A,_,_,Att,_),
+	write('MUDA MUDA MUDA MUDA MUDA MUDA!'),nl,
+	enemy_boss(_,_,_,Att,_),
 	call(player(O,N,M,L,K,J,I,H,G,F,E)),
 	random(0,3,Plus),
 	Z is Att + 5 - G + Plus,
@@ -74,12 +69,12 @@ which_attack(_) :-
 	Z is Z),
 	X is F - Z,
 	write_boss_attack(Z),
-	nl,nl,
 	assertz(player(O,N,M,L,K,J,I,H,G,X,E)),
 	retract(player(O,N,M,L,K,J,I,H,G,F,E)).
 boss_attack :-
 	random(1,10,Z),
 	which_attack(Z),
+	write('WWRRYYYYYY'),nl,
 	sleep(1).
 	
 sp_attack_do_boss(1) :-
