@@ -16,7 +16,7 @@ item(10,weapon,long_bow,40,0,0,0,uncommon,archer).
 item(11,weapon,pinaka,100,0,0,0,rare,archer).
 item(12,weapon,gandiva,200,0,0,0,rare,archer).
 item(13,weapon,sharanga,250,0,0,0,legendary,archer).
-item(14,weapon,gusisnautar,300,0,0,0,legendary,archer).
+item(14,weapon,gusisnautar,350,0,0,0,legendary,archer).
 
 item(15,weapon,apprentice_book,20,0,0,0,common,sorcerer).
 item(16,weapon,magic_staff,30,0,0,0,common,sorcerer).
@@ -24,27 +24,31 @@ item(17,weapon,caduceus,60,0,0,0,uncommon,sorcerer).
 item(18,weapon,nehustan,90,0,0,0,uncommon,sorcerer).
 item(19,weapon,was,150,0,0,0,rare,sorcerer).
 item(20,weapon,kaladanda,200,0,0,0,rare,sorcerer).
-item(21,weapon,merlins_staff,250,0,0,0,legendary,sorcerer).
+item(21,weapon,merlins_staff,400,0,0,0,legendary,sorcerer).
 
 /*ITEM ARMOR*/
 item(22,armor,fur_armor,0,20,20,0,common,all).
+item(37,armor,rusty_armor,0,25,25,0,common,all).
 
 item(23,armor,chainmail_armor,0,40,30,0,uncommon,swordsman).
 item(24,armor,iron_armor,0,70,40,0,rare,swordsman).
 item(25,armor,steel_armor,0,100,60,0,legendary,swordsman).
 
-item(26,armor,leather_armor,0,20,40,0,uncommon,archer).
-item(27,armor,elven_armor,0,40,60,0,rare,archer).
+item(26,armor,leather_armor,0,30,40,0,uncommon,archer).
+item(27,armor,elven_armor,0,50,60,0,rare,archer).
 item(28,armor,amber_armor,0,60,100,0,legendary,archer).
 
-item(29,armor,mage_robe,0,20,40,0,uncommon,sorcerer).
-item(30,armor,archmage_robe,0,30,60,0,rare,sorcerer).
-item(31,armor,jotunn,0,50,90,0,legendary,sorcerer).
+item(29,armor,mage_robe,0,20,50,0,uncommon,sorcerer).
+item(30,armor,archmage_robe,0,30,70,0,rare,sorcerer).
+item(31,armor,jotunn,0,50,110,0,legendary,sorcerer).
 
 /*ACCESORY*/
 item(32,accessory,necklace,0,0,20,0,common,all).
 item(33,accessory,ring,0,10,10,0,common,all).
 item(34,accessory,earrings,0,5,15,0,common,all).
+item(39,accessory,bracelet,0,20,20,0,uncommon,all).
+item(38,accessory,void,0,50,50,0,rare,all).
+item(36,accessory,guilty_crown,0,100,100,0,legendary,all).
 
 /*POTION*/
 item(35,potion,hp_potion,0,0,0,30,common,all).
@@ -60,6 +64,7 @@ rarity(7,uncommon).
 rarity(8,rare).
 rarity(9,rare).
 rarity(10,legendary).
+rarity(11,common).
 
 /*RARITY LISTING*/
 /*[RARITY],[RARITY_ID],[ITEM_ID] */
@@ -74,6 +79,7 @@ rarity_list(common,8,22).
 rarity_list(common,9,32).
 rarity_list(common,10,33).
 rarity_list(common,11,34).
+rarity_list(common,12,37).
 
 rarity_list(uncommon,1,4).
 rarity_list(uncommon,2,10).
@@ -82,6 +88,7 @@ rarity_list(uncommon,4,18).
 rarity_list(uncommon,5,23).
 rarity_list(uncommon,6,26).
 rarity_list(uncommon,7,29).
+rarity_list(uncommon,8,39).
 
 rarity_list(rare,1,5).
 rarity_list(rare,2,6).
@@ -92,6 +99,7 @@ rarity_list(rare,6,20).
 rarity_list(rare,7,24).
 rarity_list(rare,8,27).
 rarity_list(rare,9,30).
+rarity_list(rare,10,38).
 
 rarity_list(legendary,1,7).
 rarity_list(legendary,2,13).
@@ -100,6 +108,7 @@ rarity_list(legendary,4,21).
 rarity_list(legendary,5,25).
 rarity_list(legendary,6,28).
 rarity_list(legendary,7,31).
+rarity_list(legendary,8,36).
 
 
 /*Gacha System*/
