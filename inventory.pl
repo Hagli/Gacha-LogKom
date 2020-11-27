@@ -42,6 +42,7 @@ print_items(X):-
     write('- '),write(Y),write(' '),write(X),write(' ( Type : '),write(A),write('; Rarity : '),write(B),write('; Class : '),write(Z),write(' )'),nl.
 
 discard(X):-
+    inGame,
     (
         \+ kept(X,_) -> write('Anda tidak memiliki item tersebut.'),nl;
         kept(X,_) -> truly_discard(X)
