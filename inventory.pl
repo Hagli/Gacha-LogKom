@@ -115,8 +115,12 @@ change_armor(X):-
     player(A,B,C,OldWeapon,D,E,F,G,OldDef,OldHP,H),
     item(_,_,OldWeapon,_,OldWeaponDef,OldWeaponHP,_,_,_),
     NewDef is OldDef-OldWeaponDef+Def,
-    NewHP is OldHP-OldWeaponHP+HP,
+    NewHp is OldHP-OldWeaponHP+HP,
     NewY is Y-1,
+    (
+        NewHp =< 0 -> NewHP is 1;
+        NewHp > 0 -> NewHP is NewHp
+    ),
     /*player ganti senjata*/
     retract(player(A,B,C,OldWeapon,D,E,F,G,OldDef,OldHP,H)),
     asserta(player(A,B,C,X,D,E,F,G,NewDef,NewHP,H)),
@@ -145,8 +149,12 @@ change_acc_none(X):-
     /*new stat*/
     NewAtk is OldAtk+Atk,
     NewDef is OldDef+Def,
-    NewHP is OldHP+HP,
+    NewHp is OldHP+HP,
     NewY is Y-1,
+    (
+        NewHp =< 0 -> NewHP is 1;
+        NewHp > 0 -> NewHP is NewHp
+    ),
     /*player ganti senjata*/
     retract(player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H)),
     asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
@@ -173,8 +181,12 @@ change_acc_lanjutan(X):-
     /*new stat*/
     NewAtk is OldAtk-OldWeaponAtk+Atk,
     NewDef is OldDef-OldWeaponDef+Def,
-    NewHP is OldHP-OldWeaponHP+HP,
+    NewHp is OldHP-OldWeaponHP+HP,
     NewY is Y-1,
+    (
+        NewHp =< 0 -> NewHP is 1;
+        NewHp > 0 -> NewHP is NewHp
+    ),
     /*player ganti senjata*/
     retract(player(A,B,C,D,OldWeapon,E,F,OldAtk,OldDef,OldHP,H)),
     asserta(player(A,B,C,D,X,E,F,NewAtk,NewDef,NewHP,H)),
