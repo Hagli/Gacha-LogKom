@@ -39,7 +39,7 @@ show_inventory:-
 print_items(X):-
     kept(X,Y),
     item(_,_,X,_,_,_,_,_,Z),
-    write('- '),write(Y),write(' '),write(X),write('Class : '),write(Z),write(' )'),nl.
+    write('- '),write(Y),write(' '),write(X),write('(Class : '),write(Z),write(' )'),nl.
 
 equip(X):-
     inGame,
