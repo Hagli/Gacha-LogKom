@@ -33,7 +33,7 @@ write_boss_attack(Z) :-
 write_boss_attack(Z) :-
 	write('Dio '),write(' deal '),write(Z),write(' damage'),nl,!.
 muda_muda(1) :-
-	which_attack(9).
+	which_attack(9),!.
 muda_muda(X) :-
 	which_attack(9),
 	Y is X-1,muda_muda(Y).
